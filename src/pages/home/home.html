@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="logo-caos">
+    <img src="../../assets/imgs/caos-logo-white.png" class="logo-caos"/>
+  </div>
+  <h1 class="user-name">{{user?.nickname}}</h1>
+  <ion-card>
+    <ion-card-header>
+    <label [ngClass]="{'income' : balance?.balance > 0, 'expanse' : balance?.balance < 0}" class="block balance">{{balance?.balance | currency:"R$":0}}</label>
+    </ion-card-header>
+    <ion-card-content>
+      <label class="block">Te devem: <span class="income">{{balance?.income | currency:"R$":0}}</span></label>
+      <label class="block">Você deve: <span class="expanse">{{balance?.expanse | currency:"R$":0}}</span></label>
+    </ion-card-content>
+    <button class="btn-notinha" ion-button clear full (click)="modalNotinha()">Nova notinha</button>
+  </ion-card>
+
+  <button *ngIf="user?.admin == 1" class="" ion-button block (click)="insertStatement()">Fechar fatura</button>
+
+  <ion-row>
+    <!-- <ion-col col-4>
+      <button class="btn-home" >
+        <img src="../../assets/imgs/ico-statement.png" />
+        <label>Fatura Atual</label>
+      </button>
+    </ion-col> -->
+    <ion-col col-4>
+      <button class="btn-home" [disabled]="!paymentEnabled" (click)="modalPayment()">
+        <img src="../../assets/imgs/ico-payment.png" />
+        <label>Anotar pagamento</label>
+      </button>
+    </ion-col>
+  </ion-row>
+  
+</ion-content>
+

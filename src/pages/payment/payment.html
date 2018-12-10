@@ -1,0 +1,50 @@
+<!--
+  Generated template for the PaymentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Meus Pagamentos</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="payment">
+      <ion-segment-button value="payed">
+        Pagamentos Feitos
+      </ion-segment-button>
+      <ion-segment-button value="received">
+        Pagamentos Recebidos
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="payment">
+    <ion-item item-start *ngSwitchCase="'payed'">
+      <ion-list>
+        <button ion-item *ngFor="let p of payed">
+          <h2>Você pagou {{p.amount | currency:"R$":0}} para {{p.receiver_name}}</h2>
+          <p>{{p.date | date : 'dd/MM/y'}} às {{p.date | date : 'HH:mm'}}</p>
+          <ion-icon *ngIf="p.checked" name="checkmark-circle" item-end></ion-icon>
+        </button>
+      </ion-list>
+    </ion-item>  
+    <ion-item *ngSwitchCase="'received'">
+      <ion-list>
+        <button (click)="checkPayment(r._id)" ion-item *ngFor="let r of received">
+          <h2>{{r.payer_name}} pagou {{r.amount | currency:"R$":0}} para você</h2>
+          <p>{{r.date | date : 'dd/MM/y'}} às {{r.date | date : 'HH:mm'}}</p>
+          <ion-icon *ngIf="r.checked" name="checkmark-circle" item-end></ion-icon>
+        </button>
+      </ion-list>
+    </ion-item>
+  </div>
+</ion-content>

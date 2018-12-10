@@ -1,0 +1,70 @@
+<!--
+  Generated template for the NotinhaPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Minhas Notinhas</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div padding>
+    <ion-segment [(ngModel)]="notinhas">
+      <ion-segment-button value="owner">
+        Minhas Notinhas
+      </ion-segment-button>
+      <ion-segment-button value="payedby">
+        Pagas
+      </ion-segment-button>
+      <ion-segment-button value="participant">
+        À Pagar
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="notinhas">
+    <ion-item item-start *ngSwitchCase="'owner'">
+      <ion-list>
+        <button (click)="notinhaAction(o._id)" ion-item *ngFor="let o of owner">
+          <h2>{{o.description}}</h2>
+          <p>Participaram: {{o.participants.length}}</p>
+          <p>Criada em {{o.date | date : 'dd/MM/y'}} às {{o.date | date : 'HH:mm'}}</p>
+          <p *ngIf="o.updated_at">Atualizado em {{o.updated_at | date : 'dd/MM/y'}} às {{o.updated_at | date : 'HH:mm'}}</p>
+          <h1 item-end>{{o.total_value | currency:"R$":0}}</h1>
+        </button>
+      </ion-list>
+    </ion-item>
+    <ion-item *ngSwitchCase="'payedby'">
+      <ion-list>
+        <button ion-item *ngFor="let pb of payed_by">
+          <h2>{{pb.description}}</h2>
+          <p>Criado por: {{pb.created_by}}</p>
+          <p>Participaram: {{pb.participants.length}}</p>
+          <p>Criada em {{pb.date | date : 'dd/MM/y'}} às {{pb.date | date : 'HH:mm'}}</p>
+          <p *ngIf="pb.updated_at">Atualizado em {{pb.updated_at | date : 'dd/MM/y'}} às {{pb.updated_at | date : 'HH:mm'}}</p>
+          <h1 item-end>{{pb.total_value | currency:"R$":0}}</h1>
+        </button>
+      </ion-list>
+    </ion-item>
+    <ion-item *ngSwitchCase="'participant'">
+      <ion-list>
+        <button ion-item *ngFor="let p of participant">
+          <h2>{{p.description}}</h2>
+          <p>Criado por: {{p.created_by}}</p>
+          <p>Participaram: {{p.participants.length}}</p>
+          <p>Criada em {{p.date | date : 'dd/MM/y'}} às {{p.date | date : 'HH:mm'}}</p>
+          <p *ngIf="p.updated_at">Atualizado em {{p.updated_at | date : 'dd/MM/y'}} às {{p.updated_at | date : 'HH:mm'}}</p>
+          <h1 item-end>{{p.total_value | currency:"R$":0}}</h1>
+        </button>
+      </ion-list>
+    </ion-item>
+  </div>
+</ion-content>
